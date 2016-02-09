@@ -1,0 +1,26 @@
+.modal-header
+ <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+ .pp-header-box1
+  %h2.text-overflow.modal-title3 #{@passion.name.capitalize}
+  %p
+   %span.icon-heart.pp-header-pnate-num-heart
+   %span.pp-header-pnate-num
+    = pluralize(@passion_size,'Passionate')
+ .pp-header-box2
+  = link_to "Join", new_passion_passion_passionate_path(@passion) , :remote => true , :class => "p-passionate-join"
+.modal-body
+ .sort-filter-wrap
+  %ul{:id => "passions-sorts"  }
+   %li.sort{:id => "sort_by_date",:data => {"sort" => "date-order:desc" }}   New
+   %li.sort{:id => "sort_by_populate",:data => {"sort" => "populate-order:desc" }} Populate
+   %li.sort{:id => "sort_by_name",:data => {"sort" => "name-order:asc" }} Alphabetically
+ - @passion.passionates.each do |passionate|
+  .p-passionate-info-wrap
+   = image_tag passionate.profile_image.url(:medium)
+   = link_to passionate.name.capitalize , passionate_path(passionate.id) , :remote => true , :class => "passionate-profile-link text-overflow"
+   - p2p = passionate.passion_passionates.find_by_passion_id(@passion)
+   %p
+    = pluralize(passionate.recommend_num,'recommendation')
+   %p Prise <span>from</span> #{p2p.price_from}  <span>to </span> #{p2p.price_to}
+   %p Discount #{ p2p.discount }
+.modal-footer

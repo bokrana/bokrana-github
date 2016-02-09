@@ -1,0 +1,25 @@
+#login-dialog
+ .modal-header
+  <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+  %h2.modal-title Members Login
+ .modal-body 
+  %p.modal-title2  Log in to your account below:
+  .login-controller-error
+   %p
+  = form_tag({:controller=> "access",:action => "attempt_login"} , :remote => true ,  :novalidate => "novalidate" , :id => "login-form2") do
+   .control-group
+    = email_field_tag :email , nil , :placeholder => "Email"  , :data => {"validation" => "required email"}
+   .control-group
+    = password_field_tag :password , nil  , :placeholder => "Password",:data => {"validation" => "length" , "validation-length" => "6-60"}
+   .form-links
+    .col-6.no-right-padding
+     = submit_tag 'Login' ,:class => 'login-button' , data: { disable_with: "sending.." }
+    .password-link-wrapper
+     = link_to "Forgot password?" , restor_password_path  , {:remote => true, 'data-toggle' =>  "modal",  :id => "forget-password"}
+  .form-footer
+   / %input{type: "button", value: "Cancel",  :class => " cancel form-button","data-dismiss" => "modal"}
+   .membership-note 
+    %p 
+     Not a member yet? 
+     = link_to "Create New Account" , new_passionate_path , {:remote => true, 'data-toggle' =>  "modal",:id => "new-account-link-login-form"}
+     and join us!

@@ -1,0 +1,26 @@
+- if @passionate.errors.any?
+ #errorExplanation
+  %h4 #{pluralize(@passionate.errors.count, "error")} prohibited this project from being saved:
+  %ul
+   - @passionate.errors.full_messages.each do |msg|
+    %li #{msg}
+#form-content
+ = form_for @passionate , :url => {:action => "update", :id => @passionate.id},:data => { :trigger => "keyup"} do |f|
+  = f.label :project_name , "اسم المشروع"
+  = f.text_field :name , :class => "large" , :placeholder => "You must put project name" ,:data => {:required => "true"}
+  = f.label :desciption, "وصف المشروع"
+  = f.text_area :description , :class => "large" , :rows => "1"  , :placeholder => "You must put description for the project",:data => {:required => "true",:minlength => "12"}, :style => "resize:none;overflow:hidden;"
+  = f.label :email , "البريد الالكترونى"
+  = f.email_field :email , :class => "large" , :data => {:required => "true"}
+  = f.label :phone , "التليفون الارضى"
+  = f.telephone_field :phone , :size => 12 , :data => {:type =>"phone"}
+  = f.label :facebook_page , "الفيسبوك"
+  = f.url_field :facebook_page , :class => "large",:data => {:type => "url"}
+  = f.label :facebook_personal_profile , "الفيسبوك"
+  = f.url_field :facebook_personal_profile , :class => "large",:data => {:type => "url"}
+  = f.label :twitter , "twitter"
+  = f.url_field :twitter , :class => "large",:data => {:type => "url"}
+  = f.label :skype , "skype"
+  = f.url_field :skype , :class => "large",:data => {:type => "url"}
+  = f.submit "data-loading-text" =>"sending to server..." ,:id =>"submit", "disable_with" => "Please wait..."
+  = link_to "cancle" , :back

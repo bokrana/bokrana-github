@@ -1,0 +1,19 @@
+.modal-header
+ <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+ = image_tag("/assets/passion/#{@passion.name}.png", :class =>"tooltip-item")
+ %h2.text-overflow #{@passion.name.capitalize}
+ %h5 
+  = pluralize(@passion_size,'Passionate')
+ = link_to "Join", new_passion_passion_passionate_path(@passion) , :remote => true , :class => "p-passionate-join"
+ = link_to "Description", new_passion_passion_passionate_path(@passion) , :remote => true , :class => "p-passionate-join p-passionate-description"
+.modal-body
+ - @passion.passionates.each do |passionate|
+  .p-passionate-info-wrap
+   = image_tag passionate.profile_image.url(:medium)
+   = link_to passionate.name.capitalize , passionate_path(passionate.id) , :remote => true , :class => "passionate-profile-link text-overflow"
+   - p2p = passionate.passion_passionates.find_by_passion_id(@passion)
+   %p
+    = pluralize(passionate.recommend_num,'recommendation')
+   %p Prise <span>from</span> #{p2p.price_from}  <span>to </span> #{p2p.price_to}
+   %p Discount #{ p2p.discount }
+.modal-footer

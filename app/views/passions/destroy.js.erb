@@ -1,0 +1,33 @@
+$('#mixitup_result').mixItUp('destroy',true)
+
+var $modal = $('#mixitup_result');
+  $modal.html("<%= escape_javascript(render(:template=>'passions/index' )).html_safe %>").promise().done(function(){
+  
+   $("#mixitup_result").mixItUp({
+	  load: {
+		sort: 'date-order:desc',
+                filter: 'all'
+	}, 	pagination: {
+		limit: 20
+	},
+
+callbacks: {
+        onMixEnd: function(state) {
+    html5tooltips.refresh();
+    $('#passions_count > #total_show').html('<%= escape_javascript(@passion_count.to_s) %>'); 
+     $("#passions_count > #total_show_pluralize").text('<%= escape_javascript("Passion".pluralize(@passion_count)) %>');
+	
+	      }
+    }
+	
+})
+
+
+  toastr.success("passion deleted successfully", "", { "closeButton": true,"debug": false,"newestOnTop": true,
+  "progressBar": false,"positionClass": "toast-top-center","preventDuplicates": false, "onclick": null,"showDuration": "5000","hideDuration": "1000",
+  "timeOut": "5000","extendedTimeOut": "100000000", "showEasing": "swing","hideEasing": "linear","showMethod": "fadeIn","hideMethod": "fadeOut"})
+  
+ });
+
+
+

@@ -1,0 +1,56 @@
+#new-passion-dialog
+ .modal-header
+  <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+  %h2.modal-title Your passion has been created successfully
+ .modal-body
+  - if @passion.errors.any?
+   #errorExplanation
+    %h4 Creating your passion failed with #{pluralize(@passion.errors.count, "error")} 
+    %ul
+     - @passion.errors.full_messages.each do |msg|
+      %li #{msg}
+  .new-passion-controller-error
+   %p
+  - if logged_in? && @passion.passionates.where(:id => session[:passionate_id]).present?
+   - @relationship =  @passion.passion_passionates.find_by_passionate_id(session[:passionate_id])
+   - @filter = "joined"
+  -else
+   - @filter = "all"
+  .passion.mix.four.columns{:data => {"populate-order" => "#{@passion.passionates.size}", "name-order" => "#{@passion.name}","date-order" => " #{@passion.created_at.getutc.iso8601}"},:class => "#{@filter}"}
+   %figure
+    .passion-photo
+     = image_tag("#{@passion.passion_image.url(:medium)}",  :alt => "#{@passion.passion_image_file_name}")
+    - if @passion.description.present?
+     %figcaption
+      %h3 Description
+      %p
+       - if @passion.description.length > 110
+        = truncate @passion.description, length: 110
+        %p
+         %input{:type => "button" , :value => "Read more"  , :onclick => "swal({ width: 420,padding: 25 ,title: '#{@passion.name.gsub(/'/, {"'" => "\\'"})}',text: '#{@passion.description.gsub(/'/, {"'" => "\\'"})}'});"}
+       - else
+        = @passion.description
+   .p_main_info
+    %p.p-name{dir: "auto"} #{@passion.name.capitalize}
+    /%p.created-by created by 
+    / %span #{link_to Passionate.find_by_id(@passion.created_by).name.capitalize , passionate_path(@passion.created_by) , :remote => true , :class => "passionate-profile-link"}
+    %span.timeago{ :title => @passion.created_at.getutc.iso8601 }
+    - if admin?
+     = link_to "delete" , passion_path(@passion.id) , :id => "delete-passion", :method => :delete ,:remote => true
+     = link_to "edit" , edit_passion_path(@passion.id) , :id => "edit-passion" ,:remote => true
+   .passion-mix-footer
+    = link_to   passion_path(@passion.id) , :remote => true , :class => "pp-button" do
+     %span.icon-heart-empty
+     %span #{@passion.passionates.size}
+     = 'Passionate'.pluralize(@passion.passionates.size)
+    - if @filter == "joined"
+     = link_to  passion_passionate_path(@relationship.id) , :remote => true , :class => "joined_passion" , :method => :delete do
+      %span.icon-reply-1
+      = "Disjoin"
+    - else
+     = link_to  new_passion_passion_passionate_path(@passion) , :remote => true , :class => "join_passion" do
+      %span.icon-forward-1
+      = "Join"
+.modal-footer
+ = link_to  "confirm" , passion_new_passion_confirm_path(@passion.id) ,:remote => true , :class => "joined_passion" , :method => :get
+ 

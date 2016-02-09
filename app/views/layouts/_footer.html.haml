@@ -1,0 +1,36 @@
+.footer-top
+ .container.clearfix
+  .one-third.column.f-otc
+   %h3.title About Me
+   %p 
+    My name is Aiman Badr , I’m passionate about Ruby On Rails web development , I alse love astronomy and space science and I enjoy meeting new people and finding ways to help them have an uplifting experience :)
+   #tweets-footer.tweet.query.footer
+  .one-third.column.f-otc
+   %h3.title Contact Me
+   <ul class="contact-me">
+   %li
+    %i.icon-phone
+    %span 0100 834 2008
+   %li
+    %i.icon-mail-alt
+    %span aiman3700@gmail.com
+   %li
+    %i.icon-facebook
+    =link_to "facebook personal profile" ,"http://www.facebook.com/aiman.b.mohamed"
+   %li
+    %i.icon-skype
+    %span bokrana.com
+   </ul>
+  .one-third.column.f-otc
+   .subscribe
+    %h3.title Subscribe
+    %p Subscribe to our email newsletter to receive our news, updates and awesome free files and sources .
+    = form_tag(subscribe_path  , :method => "post" ,:remote => true ) do
+     = text_field_tag :email , "your@email.com" ,:class => "mail" ,:onfocus => "if(this.value == 'your@email.com') { this.value = ''; }" , :onBlur => "if(this.value == '') { this.value = 'your@email.com'; }"
+     = button_tag "Subscribe" , :class => "submit"
+.footer-down
+ .container.clearfix
+  .column
+   %span.copyright
+    © Copyright 2015 <a href="index.html">Bokrana</a>. All Rights Reserved
+

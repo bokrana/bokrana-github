@@ -1,0 +1,29 @@
+#terms-dialog
+ .modal-header
+  <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+  %h2.modal-title TERMS AND CONDITIONS
+ .modal-body
+  = link_to "Back to new account" , "#", {:remote => true, 'data-toggle' =>  "modal",:id => "back-to-new-account"}
+  %p
+   Welcome to our website. We want you to like us, we do. But the internet is dangerous, and we don’t like danger spilling over onto our website. So while some of this may seem OBVIOUS, we have to tell you because sometimes its good to be reminded.  So when using our site we expect the following:
+   </br>
+   </br>
+   %ul
+    %li Don’t Spam, or use this site to sell your crap without our permission.  This isn’t the classified section of the newspaper;
+    </br>
+    %li Don’t give us viruses or try and hack your way into our computers;
+    </br>
+    %li Don’t post comments on our site that are useless;
+    </br>
+    %li Don’t be a robot.  Robots are evil.  That means don’t use auto posters that are meant to leave things like “You site has great informashuns!  Thank you! I my wife tell me about your site, I say I no believe but she write…you best Site!” with anchor text to your crappy site about “Best Los Angeles Dog Groomers”.  Seriously….don’t.
+    </br>
+    %li Don’t be a jerkface.  A jerkface is someone who discriminates, defrauds, hates, or acts like an idiot. Don’t do any of that.  We’ll ban you
+    </br>
+    %li Don’t post things that you’re not supposed to or don’t have permission for.
+    </br>
+    %li Don’t do other things that we don’t like, which is up to us like steal our stuff.
+   </br>
+   </br>
+   %p If you follow the rules, you can stay. If you don’t, we can kick you out,
+   </br>
+   = link_to "Back to new account" , "#" , {:remote => true, 'data-toggle' =>  "modal",:id => "back-to-new-account"}

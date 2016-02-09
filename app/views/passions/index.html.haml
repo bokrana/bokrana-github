@@ -1,0 +1,58 @@
+- @passions.each do |passion|
+ - @ppsize = passion.passionates.size
+ - @pnum = passion.passionates_num
+ - if logged_in? && passion.passionates.where(:id => session[:passionate_id]).present?
+  - @relationship =  passion.passion_passionates.find_by_passionate_id(session[:passionate_id])
+  - @filter = "joined"
+ -else
+  - @filter = "all"
+ .passion.mix{:data => {"populate-order" => "#{@ppsize}", "name-order" => "#{passion.name}","date-order" => " #{passion.created_at.getutc.iso8601}"},:class => "#{@filter}"}
+  .passion-photo.ImageWrapper
+   - if DateTime.now <=  passion.created_at + 7.days
+    .new-content New
+   = link_to  passion_path(passion.id) , :class => "", :remote => true do
+    = image_tag("#{passion.passion_image.url(:medium)}",  :alt => "#{passion.passion_image_file_name}" , :class => "pp-image")
+    .PStyleHe
+    / - if passion.description.present?
+    /  %figcaption
+    /   %h3 Description
+    /   %p
+    /    - if passion.description.length > 110
+    /     = truncate passion.description, length: 110
+    /     %p
+    /      %input{:type => "button" , :value => "Read more"  , :onclick => "swal({ width: 420,padding: 25 ,title: '#{passion.name.gsub(/'/, {"'" => "\\'"})}',text: '#{passion.description.gsub(/'/, {"'" => "\\'"})}'});"}
+    /    - else
+    /     = passion.description
+    / - else
+    /  %figcaption
+    /   %h3 Description
+    /   %p  No Description for this Passion
+  .p_main_info
+   = link_to root_path , :class => "p-name-link", :remote => true do
+    %p.p-name{dir: "auto"} #{truncate passion.name.capitalize, length: 32}
+   /%p.created-by created by 
+   / %span #{link_to Passionate.find_by_id(passion.created_by).name.capitalize , passionate_path(passion.created_by) , :remote => true , :class => "passionate-profile-link"}
+   / %p.timeago{ :title => passion.created_at.getutc.iso8601 }
+   %p.p-discription
+    - if passion.description.present?
+     = passion.description
+    - else 
+     No Description for this Passion
+   / - if admin?
+   /  = link_to "delete" , passion_path(passion.id) , :class => "delete-passion", :method => :delete ,:remote => true
+   /  = link_to "edit" , edit_passion_path(passion.id) , :class => "edit-passion" ,:remote => true
+   .passion-mix-footer
+    = link_to   passion_path(passion.id) , :remote => true , :class => "pp-button" , :data =>{"tooltip" => "#{@ppsize} #{'Passionate'.pluralize(@ppsize)}" , "tooltip-color" => "charcoal" ,"tooltip-animate-function" => "spin", "tooltip-stickto" => "top"} do
+     %span.icon-heart-empty
+     %span #{@ppsize}
+    / %span.icon-clock.passion-index-time{:data =>{"tooltip" => "<span title='#{ passion.created_at.getutc.iso8601 }' class='timeago'></span>" , "tooltip-color" => "charcoal" ,"tooltip-animate-function" => "spin", "tooltip-stickto" => "top"}}
+    / .view-num-index-box{:data =>{"tooltip" => "#{ @pnum }  Views" , "tooltip-color" => "charcoal" ,"tooltip-animate-function" => "spin", "tooltip-stickto" => "top"}}
+    / %span.icon-eye
+    / %span #{@pnum}
+    - if @filter == "joined"
+     = link_to  passion_passionate_path(@relationship.id) , :remote => true , :class => "joined_passion" , :method => :delete do
+      %span.icon-reply-1
+    - else
+     = link_to  new_passion_passion_passionate_path(passion)  , :remote => true , :class => "join_passion" do
+      %span.icon-right-circled
+      Join this passion

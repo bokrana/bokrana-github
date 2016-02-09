@@ -1,0 +1,31 @@
+$('#mixitup_result').mixItUp('destroy',true)
+
+var $item = $('<%= escape_javascript(render :template => "pages/searchd") %>');
+
+$('#mixitup_result').html($item);
+
+$('#mixitup_result').mixItUp({
+ load: {
+		sort: 'date-order:desc',
+                filter: 'all'
+
+	}, 	pagination: {
+		limit: 20
+	},
+
+callbacks: {
+        onMixEnd: function(state) {
+
+    $('#account_count > #total_show').html('<%= escape_javascript(@pssionate_count.to_s) %>'); 
+    $('#passions_count > #total_show').html('<%= escape_javascript(@passion_count.to_s) %>'); 
+
+           $("#account_count > #total_show_pluralize").text('<%= escape_javascript("Account".pluralize(@pssionate_count)) %>');
+           $("#passions_count > #total_show_pluralize").text('<%= escape_javascript("Passion".pluralize(@passion_count)) %>');
+
+       //    var $targetDiv = $('.mixitup_result');
+      //      $("#passions-container").css('height', $targetDiv.height())
+
+
+        }
+    }
+})

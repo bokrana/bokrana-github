@@ -1,0 +1,29 @@
+.pager-list
+#passions-container.container.main-content.clearfix
+ .recent-work.clearfix.bottom-2
+  - @passions.each do |passion|
+   .passion.mix.four.columns{:data => {"passionates-order" => "#{passion.passionates_num}", "name-order" => "#{passion.name}","date-order" => "#{passion.created_at.getutc.iso8601}"}}
+    .video_preview.pic
+     = image_tag("/assets/passion/#{passion.photo}.png", :alt => passion.name, :class =>"passion-photo")
+     .pic-caption.bottom-to-top
+      %a{ :href => passion_path(passion) ,:class => "video_link"}
+      .play-btn
+    %h2{dir: "auto"}
+     =link_to passion.name , passion_path(passion)  
+    .project_info
+     - if logged_in?
+      - if passion.passionates.where(:id => session[:passionate_id]).empty?
+       = link_to "join ", new_passion_passion_passionate_path(passion)
+     .date-info
+      created by #{Passionate.find_by_id(passion.created_by).name}
+      %i.flaticon-time7
+      %span.timeago{ :title => passion.created_at.getutc.iso8601 }
+     .comment-info
+      %i.flaticon-speech59
+      %span.com #{passion.passionates.size}
+      - passion.passionates.each do |passionate|
+       = link_to passionate.name , passionate_path(passionate.id)
+       - p2p = passionate.passion_passionates.find_by_passion_id(passion)
+       = p2p.price_from if p2p.price_from > 0 || p2p.price_to > 0
+       = p2p.price_to if p2p.price_to > 0 || p2p.price_from > 0
+       = p2p.discount if p2p.discount > 0

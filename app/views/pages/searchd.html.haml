@@ -1,0 +1,66 @@
+- if @passions.present?
+ - @passions.each do |passion|
+  - if logged_in? && passion.passionates.where(:id => session[:passionate_id]).present?
+   - @relationship =  passion.passion_passionates.find_by_passionate_id(session[:passionate_id])
+   - @filter = "joined"
+  -else
+   - @filter = "all"
+  .passion.mix.four.columns{:data => {"populate-order" => "#{passion.passionates.size}", "name-order" => "#{passion.name}","date-order" => " #{passion.created_at.getutc.iso8601}"},:class => "#{@filter}"}
+   %figure
+    .passion-photo
+     = image_tag("/assets/passion/#{passion.photo}.png",  :alt => '')
+    - if passion.description.present?
+     %figcaption
+      %h3 Description
+      %p 
+       - if passion.description.length > 110
+        = truncate passion.description, length: 110
+        %p
+         %input{:type => "button" , :value => "Read more"  , :onclick => "swal({ width: 420,padding: 25 ,title: '#{passion.name.gsub(/'/, {"'" => "\\'"})}',text: '#{passion.description.gsub(/'/, {"'" => "\\'"})}'});"}
+       - else
+        = passion.description
+   %p.p-name{dir: "auto"} #{passion.name.capitalize}
+   /%p.created-by created by 
+   / %span #{link_to Passionate.find_by_id(passion.created_by).name.capitalize , passionate_path(passion.created_by) , :remote => true , :class => "passionate-profile-link"}
+   %span.timeago{ :title => passion.created_at.getutc.iso8601 }
+   .passion-mix-footer
+    = link_to   passion_path(passion.id) , :remote => true , :class => "pp-button" do
+     %span.icon-heart-empty
+     %span #{passion.passionates.size}
+     = 'Passionate'.pluralize(passion.passionates.size)
+    - if @filter == "joined"
+     = link_to  passion_passionate_path(@relationship.id) , :remote => true , :class => "joined_passion" , :method => :delete do
+      %span.icon-reply-1
+      = "Disjoin"
+    - else
+     = link_to  new_passion_passion_passionate_path(passion) , :remote => true , :class => "join_passion" do
+      %span.icon-forward-1
+      = "Join"
+- if @passionates.present?
+ - @passionates.each do |passionate|
+  .passionate.mix.four.columns{:data => { "populate-order" => "#{passionate.passion.size}", "name-order" => "#{passionate.name}","date-order" => "#{passionate.created_at.getutc.iso8601}"}}
+   %figure
+    .passionate-photo
+     = image_tag passionate.profile_image.url(:thumb)
+    - if passionate.description.present?
+     %figcaption
+      %h3 About
+      %p
+       - if passionate.description.length > 110
+        = truncate passionate.description, length: 110
+        %p
+         %input{:type => "button" , :value => "Read more"  , :onclick => "swal({ width: 420,padding: 25 ,title: '#{passionate.name.gsub(/'/, {"'" => "\\'"})}',text: '#{passionate.description.gsub(/'/, {"'" => "\\'"})}'});"}
+       - else
+        = passionate.description
+   =link_to  passionate_path(passionate.id)  ,  :remote => true do 
+    %p.p-name{dir: "auto"} #{passionate.name.capitalize}
+   %span.timeago{ :title => passionate.created_at.getutc.iso8601 }
+   .passionate-mix-footer
+    = link_to  passionate_path(passionate.id) , :remote => true , :class => "pp-button" do
+     %span.icon-heart-empty
+     %span #{passionate.passion.size}
+     = 'Passion'.pluralize(passionate.passion.size)
+    = link_to  passionate_path(passionate.id) , :remote => true , :class => "join_passion" do
+     %span.icon-forward-1
+     = "Profile"
+

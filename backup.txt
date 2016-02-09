@@ -1,0 +1,60 @@
+#project-statistics
+ %h3.project_statistics_title project statistics
+#progress-pie
+ %ul#chartlist
+  %li
+   %input.knob{:value => @bad_vote_percen , :data =>{"bgColor" => "#F4F4F4","fgColor" => "#E06B7D","thickness" => ".2"}}
+  %li
+   %input.knob{:value => @normal_vote_percen, :data =>{"bgColor" => "#F4F4F4","fgColor" => "#ECD06F","thickness" => ".2"}}
+  %li
+   %input.knob{:value => @good_vote_percen, :data =>{"skin" => "tron","bgColor" => "#F4F4F4","fgColor" => "#AEC785","thickness" => ".2"}}
+
+#widget_inner
+ .skills_row
+  %span.caption bad (#{@bad_vote} #{@user_bad_vote})
+  %span.progressbar
+   %span.progress.red
+    %span.value 93%
+ .skills_row
+  %span.caption normal (#{@normal_vote} #{@user_normal_vote})
+  %span.progressbar
+   %span.progress.yellow
+    %span.value 93%
+ .skills_row
+  %span.caption good (#{@good_vote} #{@user_good_vote})
+  %span.progressbar
+   %span.progress.green
+    %span.value 93%
+
+
+
+:javascript
+ $("#widget_inner").bind('inview', function (event, visible) {
+ if (visible == true){
+ $('.skills_row').each(function(){
+ var wd = "24%";
+ $(this).find('.progress').width(0) ;
+ $(this).find('.progress').animate({'width': wd}, 700);
+ 
+ });
+ }
+ });
+
+ $("#chartlist li").bind('inview', function (event, visible) {
+ if (visible == true){
+ $('.knob').each(function () {
+ var $this = $(this);
+ var myVal = $this.attr("value");
+ $this.knob({'width': 100,'height':100,'readOnly':true,'draw' : function () { 
+        $(this.i).val(this.cv + '%')
+     }
+               });
+ $({value: 0}).animate({value: myVal}, { 
+               duration: 1800,
+               easing: 'swing',
+               step: function () {
+                   $this.val(Math.ceil(this.value)).trigger('change');}
+   });
+ });
+ }
+ });

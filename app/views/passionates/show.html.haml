@@ -1,0 +1,51 @@
+#show_project_container
+ #col-main
+  #project-details
+   %h2.project-name{dir: "auto"}
+    = @passionate.name
+   #project_info
+    %ul
+     %li
+      %i.flaticon-time7
+      %span.timeago{ :title => @passionate.created_at.iso8601,:dir => 'ltr' }
+     %li
+      %i.flaticon-eye50
+      %span
+       = @passionate.views_num
+       مشاهده
+     %li.link
+      %i.flaticon-speech59
+      %span
+       = @passionate.recommend_num
+   #project-details-main
+    .project_description_title
+     %h2 التفاصيل
+     %p.project_description_p
+      = @passionate.description
+    .project_connect_title
+     %h2 بيانات التواصل
+     .project_contact
+      .telefone
+       رقم مختصر
+      .pemail
+       الايميل
+      .paddress
+       العنوان
+      .website
+       الموقع الالكترونى
+     %h2 احصائيات مشاهده المشروع
+   #comments
+    .comments_header_title
+     %p
+      التعليقات
+ #col-left
+  -@p2p.each do |p2p|
+   = p2p.passion.name
+   - if the_owner?
+    = link_to "edit" , edit_passion_passionate_path(p2p.id)
+    = link_to "remove me this passion" , passion_passionate_path(p2p.id),:method => "delete"
+   = p2p.price_from
+   = p2p.price_to
+   = p2p.discount
+   %br
+  

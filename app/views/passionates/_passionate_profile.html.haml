@@ -1,0 +1,57 @@
+.modal-header
+ .profile-modal-header
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+  %p www.bokrana.com/#{@passionate.id}
+.modal-body
+ .container-large.clearfix
+  .three.columns
+   .profile-image-box
+    = image_tag @passionate.profile_image.url(:medium)
+  .six.columns
+   %h2.passionate-name{dir: "auto"}
+    = @passionate.name.capitalize
+   .top-info
+    %i.top-info-icon.icon-thumbs-up-alt
+    %span #{pluralize(@passionate.recommend_num, "recomendation")}
+    %span.separator |
+    %i.top-info-icon.icon-eye
+    %span #{pluralize(@passionate.views_num, "view")}
+    %span.separator |
+    %i.top-info-icon.icon-clock
+    %span.timeago{ :title => @passionate.created_at.getutc.iso8601 }
+   %p.passionate-description.autoShorten
+    = @passionate.description
+   .contact-info
+    -if @passionate.phone.present?
+     = link_to "#"   do
+      %i.contact-info-icon.icon-phone.tooltip{:data => {"tipso" => "Phone Number"}}
+    -if @passionate.website.present?
+     %i.contact-info-icon.icon-globe.tooltip
+     %span #{@passionate.website}
+    -if @passionate.facebook_page.present?
+     = link_to @passionate.facebook_page   do
+      %i.contact-info-icon.icon-facebook.tooltip{:title => "Facebook"}
+    -if @passionate.twitter .present?
+     = link_to @passionate.twitter , :class => "tooltip" , :data => {"tooltip" => "Hello"}  do
+      %i.contact-info-icon.icon-twitter.tooltip
+    -if @passionate.youtube.present?
+     = link_to @passionate.youtube , :class => "tooltip" , :data => {"tooltip" => "Hello"}  do
+      %i.contact-info-icon.icon-youtube.tooltip
+    -if @passionate. skype.present?
+     = link_to @passionate. skype , :class => "tooltip" , :data => {"tooltip" => "Hello"}  do
+      %i.contact-info-icon.icon-skype.tooltip
+ .container-large.clearfix
+  .ten.columns
+   -@p2p.each do |p2p|
+    = p2p.passion.name
+    - if the_owner?
+     = link_to "edit" , edit_passion_passionate_path(p2p.id)
+     = link_to "remove me this passion" , passion_passionate_path(p2p.id),:method => "delete"
+    = p2p.price_from
+    = p2p.price_to
+    </br>
+    </br>
+    = p2p.discount
+    %input.knob{:value => "20", :data =>{"bgColor" => "#F4F4F4","fgColor" => "#AEC785","thickness" => ".2"}}
+    %br
+.modal-footer

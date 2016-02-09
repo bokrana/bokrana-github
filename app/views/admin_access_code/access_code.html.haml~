@@ -1,0 +1,5 @@
+%br
+Hello #{@username}
+%br
+%br
+Access Code : #{@code}

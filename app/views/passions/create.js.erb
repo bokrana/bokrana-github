@@ -1,0 +1,9 @@
+var $modal = $('#modal');
+  $modal.html("<%= escape_javascript(render 'passions/create_succ') %>").promise().done(function(){
+  $modal.modal({ "width" : "575px" });
+ });
+
+
+  $('#new_passion').on("ajax:beforeSend", function(){
+$modal.modal('loading');
+ }).on("ajax:complete", function(){$modal.modal('loading');})

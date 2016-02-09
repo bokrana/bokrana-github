@@ -1,0 +1,8 @@
+%h2 join
+= form_for(@p2p,:url => {:action =>"create"},:html => {:novalidate => 'novalidate'},:method => :post) do |f|
+ .input-container
+  = f.text_field :price_from 
+  = f.text_field :price_to
+  = f.text_field :discount 
+  = f.text_area :note
+  = f.submit "join"

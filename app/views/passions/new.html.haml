@@ -1,0 +1,59 @@
+#rfwrfw 
+ #new-comment
+  .new_comment_title
+   %h2 new passion
+  = form_for(@passion,:url => {:action =>"create"},:html => {:novalidate => 'novalidate'},:method => :post) do |f|
+   .input-container
+    #textarea-error
+     %span.arrow-down
+    = f.text_area :description , :rows => "3", :placeholder => "descripe your passion", :data => {"parsley-trigger" => "change","parsley-maxlength" =>"1500","parsley-required" => "true","parsley-errors-container" =>"#textarea-error"} , :style => "resize:none;overflow:hidden;"
+    #email-error
+    = f.text_field :name , :placeholder => "passion name",:data => {"parsley-trigger" => "change","parsley-required" => "true","parsley-errors-container" =>"#email-error"}
+   = f.submit "create"
+   
+
+:javascript
+ $('form').on("ajax:beforeSend", function(){
+ $('input[type="submit"]').attr('disabled', true)
+ $(".alert").fadeOut("fast").remove();
+ $("#new-comment").append('<div id="loading-wrap"><img id="spin" src="/assets/loading.gif" ></div>');
+ }).on("ajax:success", function(){
+ $('input[type="submit"]').removeAttr("disabled")
+ $('input[type="email"],textarea').val("");
+ $("#comment_vote_3").prop("checked", true);
+ $("#loading-wrap").remove();
+ var alert = $('<div class="alert alert-success"><span class="entypo-check"></span><p>Your comment has been successfully sent.</p><button class="close" type="button"></button></div>').fadeIn();
+ $("#layout").prepend(alert);
+ $('.close').click(function() {
+ $(".alert").fadeOut("slow").promise().done( function(){$(".alert").remove()});
+ });
+ }).on("ajax:error", function(evt, xhr, status, error, exception){
+ $('input[type="submit"]').removeAttr("disabled");
+ $("#loading-wrap").remove();
+ if(xhr.status == 422){
+ var errors = xhr.responseJSON.error;
+
+ for(var message in errors) {
+ $("#send-comment-activecode-status").append('<li>' + errors[message] + '</li>');
+ }
+
+ }else if (xhr.status === 0){
+ var alert = $('<div class="alert alert-error"><span class="entypo-cancel"></span><p>Not connect. Verify Network.</p><button class="close" type="button"></button></div>').fadeIn();
+
+ }else if (xhr.status == 404) {
+ var alert = $('<div class="alert alert-error"><span class="entypo-cancel"></span><p>Requested page not found. 404</p><button class="close" type="button"></button></div>').fadeIn();
+ }
+
+ else if (xhr.status == 500) {
+ var alert = $('<div class="alert alert-error"><span class="entypo-cancel"></span><p>Internal Server Error 500</p><button class="close" type="button"></button></div>').fadeIn();
+ }
+
+ else {
+ var alert = $('<div class="alert alert-error"><span class="entypo-cancel"></span><p>Error. please try again</p><button class="close" type="button"></button></div>').fadeIn();
+ }
+ 
+ $("#layout").prepend(alert);
+ $('.close').click(function() {
+ $(".alert").fadeOut("slow").promise().done( function(){$(".alert").remove()});
+ });
+ })

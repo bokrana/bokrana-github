@@ -1,0 +1,19 @@
+var $modal = $('#modal');
+   $("#new-passionate-dialog").hide();
+  $modal.prepend("<%= escape_javascript(render 'terms') %>").promise().done(function(){
+  $("#login-email").focus();
+ });
+
+$modal.on('click', '#back-to-new-account', function(e){
+ e.stopPropagation(); 
+ $modal.modal('loading');
+ 
+ setTimeout(function(){
+  $("#new-passionate-dialog").show();
+  $("#terms-dialog").remove()
+ $modal.modal('loading');
+  }, 1000);
+ 
+});
+
+

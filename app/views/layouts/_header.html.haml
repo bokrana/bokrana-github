@@ -1,0 +1,57 @@
+- if @validationerrors
+ #errorExplanation(class = "alert alert-error fade in")
+  %button.close(type="button" data-dismiss="alert") &times; 
+  %h4 Oh snap! You got an #{pluralize(@validationerrors.count, "error")}
+  %ul
+   - @validationerrors.full_messages.each do |msg|
+    %li #{msg}
+.top-bar
+ .container.clearfix
+  .three.columns
+   =link_to( image_tag("/assets/header/bokrana-logo.png",:class => "logo-image"), root_path, :class=>"home-link",:remote => true )
+  .nine.columns
+   - if logged_in?
+    #cssmenu
+     %ul
+      %li.view-profile-link
+       .header-profile-image-box
+        = image_tag current_passionate.profile_image.url(:thumb)
+       = link_to  passionate_path(current_passionate.id) , :class => "has-sub" ,:remote => true , :id => "header-passionate-show" ,:data =>{"tooltip" => "View Profile" , "tooltip-color" => "charcoal" ,"tooltip-animate-function" => "spin"}  do
+        %p #{current_passionate.name}
+        %span.recommend-num-header #{pluralize(current_passionate.recommend_num, "recomendation")}
+      %li.edit-profile-link
+       = link_to  edit_passionate_path(current_passionate.id) , :data =>{"tooltip" => "Edit" , "tooltip-color" => "charcoal" ,"tooltip-animate-function" => "spin"} ,:remote => true do 
+        %span.icon-edit-1
+      - if current_passionate.role == "admin"
+       %li.admin-link
+        = link_to  rails_admin_path , :data =>{"tooltip" => "Admin Page" , "tooltip-color" => "charcoal" ,"tooltip-animate-function" => "spin"} do
+         %span.icon-rocket
+      %li.logout-link
+       = link_to  logout_path , :method => :delete ,  :data =>{"tooltip" => "Logout" , "tooltip-color" => "charcoal" ,"tooltip-animate-function" => "spin"} do
+        %span.icon-logout
+   - else
+    .header-control
+     .social
+     = link_to "http://www.facebook.com/bokrana" , :class => "facebook-header" do
+      <i class="icon-facebook"></i>
+     = link_to "http://www.facebook.com/bokrana" , :class => "youtube-header" do
+      <i class="icon-youtube"></i>
+     = link_to  "How To Find Your Passion",new_passionate_path , {:remote => true, 'data-toggle' =>  "modal",:id => "find-passionate-botton"} 
+     = link_to  "Create Account",new_passionate_path , {:remote => true, 'data-toggle' =>  "modal", :id => "new-passionate-botton"} 
+     = link_to "Login", "#" , :id => "login_button" 
+    #login-dropdownbox
+     .arrow-up
+     %p.login_header Members Login
+     .login-controller-error
+      %p
+     = form_tag({:controller=> "access",:action => "attempt_login"} , :remote => true ,  :novalidate => "novalidate" , :id => "login-form") do
+      .control-group
+       = email_field_tag :email , nil , :placeholder => "Email" ,:data => {"validation" => "required email"}
+      .control-group
+       = password_field_tag :password , nil , :placeholder => "Password",:data => {"validation" => "length" , "validation-length" => "6-60"}
+      .actions
+       = link_to "Forgot your password?" , restor_password_path , :id => "forget-password",:remote => true
+       = submit_tag 'LOGIN' ,:class => 'login-button' , data: { disable_with: "Checking.." }
+       .login_footer
+        %p
+         Not a member yet?  #{ link_to "Create New Account" , new_passionate_path , :remote => true, 'data-toggle' =>  "modal", :id => "new-passionate-botton2"}

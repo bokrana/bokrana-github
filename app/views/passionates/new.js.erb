@@ -1,0 +1,45 @@
+var $modal = $('#modal');
+  $modal.html("<%= escape_javascript(render 'passionates/new_form') %>").promise().done(function(){
+  $modal.modal({ "width" : "575px" , "focusOn" : "#passionate_name" });
+  $("#passionate_name").focus();
+ });
+
+ 
+$modal.on('click', '#have-login', function(){
+  $modal.modal('loading');
+});
+
+
+$modal.on('click', '.controller-error-link', function(){
+  $modal.modal('loading');
+});
+
+
+$('#terms-of-service').on("ajax:beforeSend", function(){
+$modal.modal('loading');
+ }).on("ajax:complete", function(){$modal.modal('loading');})
+
+
+
+
+$('#passionate_description').restrictLength($('#maxlength'));
+$.validate({
+   form : '#new_passionate',
+    modules : 'security, file',
+  onModulesLoaded : function() {
+    var optionalConfig = {
+      fontSize: '14px',
+      padding: '4px',
+      bad : 'Very bad',
+      weak : 'Weak',
+      good : 'Good',
+      strong : 'Strong'
+    };
+    $('#passionate_password').displayPasswordStrength(optionalConfig);
+  }
+  });
+
+
+
+
+

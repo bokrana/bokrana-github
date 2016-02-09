@@ -1,0 +1,22 @@
+var $modal = $('#modal');
+  $modal.html("<%= escape_javascript(render 'access/login_form') %>").promise().done(function(){
+  $modal.modal({ "width" : "575px" , "focusOn" : "#login-email" });
+  $("#login-email").focus();
+ });
+
+$modal.on('click', '#new-account-link-login-form', function(){
+  $modal.modal('loading');
+});
+
+$modal.on('click', '.controller-error-link', function(){
+  $modal.modal('loading');
+});
+
+
+$modal.on('click', '#forget-password', function(){
+  $modal.modal('loading');
+});
+
+
+$.validate({form : '#login-form2'});
+

@@ -1,0 +1,29 @@
+var $modal = $('#ajax-modal');
+  $modal.removeClass()
+  $modal.addClass("modal hide mid join-modal  in modal-overflow")
+  $modal.html("<%= escape_javascript(render 'passion_passionates/new_form') %>").promise().done(function(){
+  $modal.modal();
+ });
+
+
+$.validate({
+   form : '#join_passion_form',
+  scrollToTopOnError : true,
+  errorMessagePosition : 'top',
+   addSuggestions : false
+  });
+
+
+
+
+$('#new_passionate').on("ajax:beforeSend", function(){
+$('#new_passionate  #submit').attr({'disabled' : 'disabled' , 'value' : 'Sending ..'});
+$('#new_passionate  input:not([type=submit],[type=button],[type=file])').css({"background-color":"#ddd" , "color" : "#777"});
+
+ }).on("ajax:complete", function(){
+$('#new_passionate  input').removeAttr("disabled")
+$('#new_passionate  input:not([type=submit],[type=button],[type=file])').removeAttr( 'style' );
+$('#new_passionate  #submit').attr('value', 'Create');
+
+ }).on("ajax:error", function(evt, xhr, status, error, exception){
+ })

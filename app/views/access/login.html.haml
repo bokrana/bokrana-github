@@ -1,0 +1,17 @@
+#login-htm
+ #login-box
+  %p.login_header Login
+  .login-error
+   .sa-error-container !
+   %span 
+  = form_tag({:controller=> "access",:action => "attempt_login"} , :remote => true ,  :novalidate => "novalidate" , :id => "login-form") do
+   .input-field
+    = email_field_tag :email , nil , :placeholder => "Email", autofocus: true
+   .input-field
+    = password_field_tag :password , nil , :placeholder => "Password"
+   .actions
+    = link_to "Forgot your password?" , restor_password_path , :id => "forget-password",:remote => true
+    = submit_tag 'LOGIN' ,:class => 'login-button' , data: { disable_with: "Checking.." }
+    .login_footer
+     %p
+      Not a member yet?  #{ link_to "Register now" , new_passionate_path , :remote => true, 'data-toggle' =>  "modal", :id => "new-passionate-botton2"}

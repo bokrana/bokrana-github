@@ -1,0 +1,18 @@
+var $modal = $('#modal');
+  $modal.html("<%= escape_javascript(render 'passions/new_passion_form') %>").promise().done(function(){
+  $modal.modal({ "width" : "575px" , "focusOn" : "#passion_name" });
+  $("#passion_name").focus();
+ });
+
+
+
+$('#passion_description').restrictLength($('#maxlength'));
+$.validate({
+   form : '#new_passion',
+    modules : ' file',
+  });
+
+
+$('#new_passion').on("ajax:beforeSend", function(){
+$modal.modal('loading');
+ }).on("ajax:complete", function(){$modal.modal('loading');})

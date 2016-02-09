@@ -1,0 +1,6 @@
+var $modal = $('#profile-modal');
+  $modal.addClass("x-large")
+  $modal.html("<%= escape_javascript(render 'passionates/passionate_profile') %>").promise().done(function(){
+  $modal.modal();
+ });
+

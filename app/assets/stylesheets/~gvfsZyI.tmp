@@ -1,0 +1,184 @@
+html {}
+body {}
+.page-container{ background: none repeat scroll 0 0 #f0f0f0; }
+#toTop i {color:#fff;line-height: 46px;font-size: 36px;}
+#toTop i::before{width: auto !important;}
+.text-overflow{overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
+a:visited{color:inherit}
+a:active{color:inherit;}
+input::-moz-focus-inner { border: 0; }
+
+::-moz-selection {color: #fff;text-shadow:none;background: none repeat scroll 0 0 #00AEC8;}
+::selection {color: #fff;text-shadow:none;background: none repeat scroll 0 0 #00AEC8;}
+.morelink{color: #00A9C7}
+#errorExplanation{margin-bottom: 15px;}
+#errorExplanation >ul {color:#EC6461}
+
+
+input::-webkit-input-placeholder {font-size: 16px; }
+input:-moz-placeholder { /* Firefox 18- */ font-size: 16px;   }
+input::-moz-placeholder {  /* Firefox 19+ */ font-size: 16px;   }
+input:-ms-input-placeholder {  font-size: 16px;  }
+input:focus::-webkit-input-placeholder {color: #bbb;}
+input:focus:-moz-placeholder {color: #bbb;}
+input:focus::-moz-placeholder {color: #bbb;}
+input:focus:-ms-input-placeholder {color: #bbb;}
+
+/* Custom CSS Code 
+=================================================*/
+/* header */
+.top-bar {height: 72px;background: none repeat scroll 0 0 #fff;}
+.logo img {}
+/*
+=========== admin control  ============================
+*/
+#admin-control{
+    background: none repeat scroll 0 0 #BE5C66;
+    border-bottom: 2px solid #A2404A;
+    color: #FFFFFF;
+    font-size: 14px;
+    font-weight: normal;
+    height: 40px;
+    line-height: 40px;
+    margin: 0;
+    overflow: visible;
+    padding: 0;
+    position: relative;
+    text-align: center;
+    width: 100%;
+    z-index: 1000;
+    display: block;
+    left: 0;
+    top: 0;
+     span{float: left;font-family: RobotoMedium;margin-left: 13%;}
+     nav{float: right;margin-right: 20%;}
+     li{float: left;position: relative;}
+     
+     li:hover{ background-color: #A2404A;}
+     
+     li:after { background: none repeat scroll 0 0 #A2404A;
+    content: "";
+    height: 20px;
+    position: absolute;
+    top: 8px;
+    width: 2px;}
+    
+     li a {color: rgb(255, 255, 255);
+          font-size: 14px;
+          padding: 10px 15px;
+          text-transform: uppercase;}
+}
+
+/*=============end of admin control==========================*/
+
+.loading-mask {background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 3px;bottom: 0;left: 0;position: absolute;right: 0;top: 0;}
+    
+/*=============end of header================================*/
+span.icon-heart-empty:before, span.icon-edit-1:before,span.icon-logout-1:before{margin-right: 0 !important;}
+.input-error{border-color: #F27474 !important;}   
+.login-controller-error,.restor-controller-error,.new-passionate-controller-error,.restore-password-controller-error,.new-passion-controller-error{ background-image: image-url("error-icon.png");
+display:none;margin: 10px 0;
+background-color: #E8534F;
+background-position: 15px center;
+    background-repeat: no-repeat;
+    border-radius: 2px;
+    color: #FFFFFF;
+   box-sizing: border-box;
+    overflow: hidden;
+    padding: 15px 15px 15px 50px;
+    position: relative;
+    width: 100%;}
+
+.login-controller-error,restor-controller-error,new-passionate-controller-error ,.restore-password-controller-error ,.new-passion-controller-error > p{line-height: 20px;word-wrap: break-word;font-size: 1.2em;}
+.controller-error-link{ color: white;text-decoration: underline; font-family: RobotoBold;cursor: pointer;}
+.controller-error-link:hover{text-decoration:none}
+/*===*/
+.header-control {float: right;padding:28px;
+a{padding: 8px 20px;color:#888;font-family: Robotomedium;font-size: 15px;}
+a:hover , .active {color:#585a5b;}
+}
+#new-passionate-botton{background-color: #51a9ab;border-radius: 3px;color: #FFFFFF;}
+
+.logo-image{padding:4px 0;}
+
+
+
+
+
+
+#login-dropdownbox {background-color: #fff;position: absolute;right: 0;display: none; z-index: 200;
+   right: 6px;top: 90px;padding: 15px;box-shadow: 0 3px 5px rgba(48, 54, 61, 0.3);border-radius: 2px;width: 360px;
+
+.login_header{color: #4c4c4c;margin: 8px 0 ;text-align: center;font-size: 18px;font-family: Montserrat-Regular,"Open Sans","Helvetica Neue",Arial;
+                        text-transform: uppercase;
+
+a{color: #E26060}
+                        #new-passionate-botton2 {color:#E26060;margin-left:2px;}   
+                        #new-passionate-botton2:hover {text-decoration: underline;} 
+ }
+
+input[type='email'] , input[type="password"] { background: #fff;color: #4c4c4c;border:1px solid #dfdfdf;border-radius: 3px;
+                     font: 16px Robotoregular,NeoSansW23-medium, sans-serif;padding: 16px;margin: 12px 0;width: 100%;box-sizing: border-box;
+;-webkit-transition: all 0.20s ease-in-out;-moz-transition: all 0.20s ease-in-out;-ms-transition: all 0.20s ease-in-out;-o-transition: all 0.20s ease-in-out;outline: 0;}
+
+input[type='email']:focus , input[type="password"]:focus {border-color: #51a9ab;}
+
+input[type=submit] {border: medium none;box-shadow: none;color: #FFFFFF; cursor: pointer;font-size: 1.2em; font-family: Montserrat-Regular,"Helvetica Neue",Arial;
+    font-size: 18px;padding: 10px;margin: 22px 0px 16px;background-color: #51a9ab;border-radius: 3px;transition: all 0.2s ease-in-out 0s;width: 100%;}
+    
+input[type=submit]:hover{background-color:#459091;}
+
+.actions{}
+#forget-password{font-size: 14px;color:#aaa;transition: all 0.2s ease-in-out 0s;}
+#forget-password:hover{color:#666;}
+.login_footer{font-size: 1.1em;color: #5b5b5b;padding-bottom: 5px;}
+    
+ .login_footer a{color:#51a9ab}
+ .login_footer a:hover{text-decoration: underline;}
+    
+    .arrow-up {width: 0px;height: 0px;right: 60px;top: -11px;border-style: solid;position: absolute;
+                     border-color: transparent transparent #fff transparent;border-width: 0 12px 13px ;} 
+}
+.header-profile-image-box{float: left;height: 50px;width: 50px;margin-right: 5px;}
+.header-profile-image-box > img {height: 48px;width: 48px;}
+.recommend-num-header {color: #909090;display: block;}
+#header-passionate-show > p {line-height: 24px;font-size: 14px;}
+
+.view-profile-link{width: 215px;}
+.edit-profile-link,.logout-link,.admin-link{margin-right: 13px;margin-top: 5px;width:40px}
+.edit-profile-link span,.logout-link span,.admin-link span{font-size: 34px;}
+/*=============end of header==========================*/
+.home-banner{background:#f0f0f0 url("") repeat fixed center center / cover }
+.main-header{overflow: hidden;height: 385px;padding: 30px 0;}
+
+.home-big-photo{ float: right;width: 515px;}
+.header-message-text{color: #3A4145;position: absolute;width: 440px;top:100px;left:25px;text-align: center;}
+.header-message-text p.one {font-family: Robotolight;font-size: 32px;line-height: 32px;font-family: Montserrat-Light;}
+.header-message-text .two {font-family: RobotoBold;font-size: 42px;line-height: 48px;font-family: Montserrat-Bold;}
+.header-message-text .three {font-size: 19px;line-height: 26px;margin-bottom: 38px;padding-top: 7px;}
+#join-us{background-color: #0DB2CA;color: #fff;font-size: 20px;padding: 11px 20px;border-radius: 3px;}
+#join-us:hover{background-color: #02A7BF}
+
+/*=============main body==========================*/
+.main-body{background-color:#E4E4E4;padding-bottom: 25px;}
+
+/* ======================search========================== */
+#search-title{text-align: center;}
+
+#search-title > p {  color: #605F5D;font-family: Robotolight;font-size: 28px;
+                             line-height: 40px; padding: 50px 0 15px;}
+
+.search-wrap{text-align: center;}
+#search-box{ display: inline-block;text-align: justify;position: relative;}
+
+#search-bar {background: none repeat scroll 0 0 #fff; position: relative;width: 450px;
+
+input[type="text"]{ background: none repeat scroll 0 0 transparent;font-family: RobotoRegular,NeoSansW23-medium,sans-serif;
+    border: 0 none;font-size: 18px;margin: 15px 125px 15px 20px;width: 65%;}
+         
+button{ background-color: #fff;position: absolute; cursor: pointer; width:50px;right:0;top:0;border:none;height: 100%;}
+  i{font-size: 28px;color:#949A9F}
+        
+}
+/* ===================end search==

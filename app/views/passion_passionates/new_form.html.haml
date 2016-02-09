@@ -1,0 +1,24 @@
+.modal-header
+ <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+ %h2 join #{@passion.name}
+.modal-body
+ - if @p2p.errors.any?
+  #errorExplanation
+   %h4 #{pluralize(@p2p.errors.count, "error")} prohibited this project from being saved:
+   %ul
+    - @p2p.errors.full_messages.each do |msg|
+     %li #{msg}
+ #form-content
+  = form_for(@p2p,:url => {:action =>"create"},:html => {:novalidate => 'novalidate'},:method => :post) do |f|
+   .control-group
+    = f.text_field :price_from 
+   .control-group
+    = f.text_field :price_to
+   .control-group
+    = f.text_field :discount 
+   .control-group
+    = f.text_area :note
+   .form-footer
+    %input{type: "button", value: "Cancel",  :class => "form-button","data-dismiss" => "modal"}
+    = f.submit "Create" ,:id =>"submit",:class => "form-button"
+.modal-footer

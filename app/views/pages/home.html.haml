@@ -1,0 +1,68 @@
+#home-banner
+ .main-header.container.clearfix
+  = image_tag("http://s29.postimg.org/z520zl61z/17482_NR5_Z3_M.png",:class => "home-big-photo")
+  .header-message-text
+   %h1 discover your <span>PASSION</span>
+   %h3 And connect with ather passionate to change the world
+   = link_to "Join us now", new_passion_path , :remote => true , :id => "join-us"
+  <a href="#" class="down-button"><i class="icon-angle-down"></i></a><!-- this appear on small devices -->
+.search-wrap
+ #search-box
+  %p.passions_count Search for more than #{@passion_count} passions and #{@pssionate_count} passionate <span class="s-arrow">A</span>
+  /%span#total_show_pluralize #{"Passion".pluralize(@passion_count)}    
+  = form_tag(search_path  , :method => "get" ,:remote => true , :id => "search-bar" ) do
+   %i.icon-search
+   = text_field_tag :search_input , params[:q] , :name => "q" , dir: "auto", :placeholder => "Search"
+   = button_tag(type: "submit") {"search"}
+.projects-control
+ / #search-title.container.clearfix
+ / %p Please search for your passion before create new one :)
+ #passions.container.clearfix
+  /.two-custom.columns
+  / #passions_count
+  / .total-filter-link.filter{:data => {"filter" => ".passion" }}
+  / %p#total_show #{@passion_count}
+  / %p#total_show_pluralize #{"Passion".pluralize(@passion_count)}
+  / .two-custom.columns
+  / #account_count
+  / .total-filter-link.filter{:data => {"filter" => ".passionate" }}
+  / %p#total_show #{@pssionate_count }
+  / %p#total_show_pluralize #{"Account".pluralize(@pssionate_count)}
+  / .marge.columns ...
+  .sort-filter-wrap
+   %ul{:id => "passions-sorts"  }
+    %li.sort{:id => "sort_by_date",:data => {"sort" => "date-order:desc" }}   New
+    %li.sort{:id => "sort_by_populate",:data => {"sort" => "populate-order:desc" }} Populate
+    %li.sort{:id => "sort_by_name",:data => {"sort" => "name-order:asc" }} Alphabetically
+  /= link_to "New Passion", new_passion_path , :remote => true , :id => "new_passion_link", data: { disable_with: "Loading.." }
+  /- if logged_in? && current_passionate.passion.size > 1
+  /%ul{:id => "passions-filter"}
+  /.sperate
+  /%li.filter{:id => "filter_all",:data => {"filter" => "all" }} All passions
+  /%li.filter.active{:id => "filter_my_passion",:data => {"filter" => ".joined" }}   My passions
+.main-body
+ #mixitup_result.container.clearfix
+  = render :template=>'passions/index'
+ .pager-box
+  .pager-list
+/<div class="sixteen"><hr class="line bottom-3"></div><!-- End line -->
+/
+ #footer-site-statistics
+  %ul#footer-site-stat-list.container.clearfix
+   %li.footer-site-stat
+    %span.footer-site-stat-val #{@passion_count}
+    %span.footer-site-stat-key passion
+   %li.footer-site-stat
+    %span.footer-site-stat-val #{@passion_count}
+    %span.footer-site-stat-key passionate
+   %li.footer-site-stat
+    %span.footer-site-stat-val 0
+    %span.footer-site-stat-key Projects
+#find-your-passion
+ .container.clearfix
+  .img-earth-half
+   = image_tag("/assets/earth-half.png",:class=>"earth-half")
+  .footer-find-passion
+   %h2.supporting Don’t Know What Is Your Passion ?
+   %p.minor IPv6 addresses are now available for Droplets in all of our regions. Users can enable IPv6 during Droplet creation or on existing virtual servers without the need for a reboot. This will be the standard for all datacenter locations going forward.
+   <a href="https://www.digitalocean.com/company/blog/announcing-ipv6-support-in-singapore/" class="link">Learn More</a>

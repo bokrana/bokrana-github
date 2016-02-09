@@ -1,0 +1,32 @@
+#new-passion-dialog
+ .modal-header
+  <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+  %h2.modal-title Create a new Passion
+ .modal-body
+  - if @passion.errors.any?
+   #errorExplanation
+    %h4 Creating your passion failed with #{pluralize(@passion.errors.count, "error")} 
+    %ul
+     - @passion.errors.full_messages.each do |msg|
+      %li #{msg}
+  .new-passion-controller-error
+   %p
+  = form_for(@passion,:url => {:action =>"create"},:html => {:novalidate => 'novalidate',:multipart => true},:method => :post,:remote => true) do |f|
+   .control-group
+    = f.text_field :name , :placeholder => "Passion Name",:data => {"validation" => "required"}
+   #upload
+    #cover-photo-upload
+     <span id ='photo-error-dialog'></span>
+     #btn-upload-cover
+      #new-photo
+       browse
+       = f.file_field :passion_image,:id => "file_upload",:onchange => "previewFile()",:data => {"validation" =>  "mime size required" , "validation-allowing" => "jpg,png,jpeg","validation-max-size" => "3M","validation-error-msg-container" => "#photo-error-dialog"}
+     #photo-info
+      <strong>JPEG | JPG</strong>file,<strong>3 MB</strong>Max
+   .control-group
+    = f.text_area :description , :rows => "3", :placeholder => "Passion Description" , :style => "resize:none;overflow:hidden;"
+    <span id="maxlength">2500</span> characters left
+   .form-footer
+    %input{type: "button", value: "Cancel",  :class => "cancel-modal","data-dismiss" => "modal"}
+    = f.submit "Save & Continue" ,:id =>"new-passion-submit",:class => "form-button",:data => { :disable_with=> "saving.." }
+.modal-footer

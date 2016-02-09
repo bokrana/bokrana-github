@@ -1,0 +1,2 @@
+module AimanistratorsHelper
+end

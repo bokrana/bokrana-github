@@ -1,0 +1,39 @@
+#new-passionate-dialog
+ .modal-header
+  <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+  %h2.modal-title CREATE NEW ACCOUNT
+ .modal-body
+  - if @passionate.errors.any?
+   #errorExplanation
+    %h4 #{pluralize(@passionate.errors.count, "error")} prohibited this project from being saved:
+    %ul
+     - @passionate.errors.full_messages.each do |msg|
+      %li #{msg}
+  %p.modal-title2  Please fill in your personal basic information:
+  .new-passionate-controller-error
+   %p
+  = form_for @passionate , :url => {:action => "create"} , :html => {:novalidate => 'novalidate'} , :remote => true do |f|
+   %fieldset
+    .control-group
+     = f.label :name , "<span id = 'name-error-dialog'></span>".html_safe
+     = f.text_field :name , :placeholder => "Your full name *" ,:data => {"validation" => "required"}
+    .control-group
+     = f.label :email , "<span id = 'email-error-dialog'></span>".html_safe
+     = f.email_field :email ,:data => {"validation" => "required email"},:placeholder => "Your Email *"
+    .control-group
+     = f.label :password , "<span id = 'password-error-dialog'></span>".html_safe
+     = f.password_field :password, :placeholder => "password * (At least 6 characters)" ,:name => "passionate[password]",:data => {"validation" => "length" , "validation-length" => "min6","validation-error-msg-container" => "#password-error-dialog"}
+    .control-group
+     = f.label :password_confirmation , "<span id = 'confirm-error-dialog'></span>".html_safe
+     = f.password_field :password_confirmation, :placeholder => "confirm password *", :data => {"validation" => "confirmation","validation-confirm" => "passionate[password]","validation-error-msg-container" => "#confirm-error-dialog"}
+    .col-6.terms-of-service-wrapper
+     %p By clicking Sign Up, you agree to our
+     = link_to "terms of service" , terms_path  , {:remote => true, 'data-toggle' =>  "modal",  :id => "terms-of-service"}
+    .col-6.no-right-padding
+     = f.submit "Create Account" ,:id =>"submit",:class => "form-button"
+    .form-footer
+     .membership-note 
+      %p 
+       Already have an account?
+       = link_to " Log In", login_path , {:remote => true, 'data-toggle' =>  "modal", :id => "have-login"} 
+

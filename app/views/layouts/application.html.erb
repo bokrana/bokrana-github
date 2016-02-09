@@ -1,0 +1,47 @@
+<!DOCTYPE html><!-- html5 -->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if IE 9 ]><html class="ie ie9" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+ <!-- Basic Page Needs -->
+ <%= csrf_meta_tags %>
+ <title><%= title %></title>
+ <link rel="shortcut icon" href="/assets/header/favicoon.ico" />
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+ <meta name="description" content="<%= @passionate.description if defined?(@passionate.description) %>" >
+ <meta name="author" content="<%= @passionate.name if defined?(@passionate.name) %>">
+
+  <!-- Mobile Specific Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- Main Style -->
+<%= stylesheet_link_tag    "application", params[:controller] , "data-turbolinks-track" => true %>
+
+
+  <!-- javascript -->
+  <%= javascript_include_tag  "application" , params[:controller] , "data-turbolinks-track" => true %>
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+          <script src="/assets/my-java/ie9/html5shiv.min.js"></script>
+  <![endif]-->
+  
+</head>
+<body onload="init();">
+<noscript><div style="padding-top: 1.89em;"></div><div id="noscript-warning">Bokrana works best with JavaScript enabled</div></noscript>
+<div class="page-container">
+<header><%= render 'layouts/header' %></header>
+
+<div id="modal" class="modal hide " role="dialog" aria-labelledby="ajax-modal" aria-hidden="true"></div>
+<% if notice %><script>swal({title: "Good job!", text: "<%= notice %>", type: "success",timer: 6000});</script><%end%>
+<% if alert %><div class = 'alert'><button class="close" data-close="true" ><img src="/assets/close.png" ></button><div>Warning! <%= alert %></div></div><%end%>
+<% if flash[:error] %><div class = 'alert error' ><button class="close" data-close="true" ><img src="/assets/close.png" ></button><div>Oh snap! <%= flash[:error] %></div></div><%end%>
+<% if flash[:success] %><script>toastr.error("<%= escape_javascript(flash[:success])%>", "", { "closeButton": true,"debug": false,"newestOnTop": true,
+  "progressBar": false,"positionClass": "toast-top-center","preventDuplicates": false, "onclick": null,"showDuration": "5000","hideDuration": "1000",
+  "timeOut": "5000","extendedTimeOut": "100000000", "showEasing": "swing","hideEasing": "linear","showMethod": "fadeIn","hideMethod": "fadeOut"})</script><%end%>
+
+<%= yield %>
+<footer><%= render 'layouts/footer' %></footer>
+</div><!-- End wrap -->
+</body>
+</html>

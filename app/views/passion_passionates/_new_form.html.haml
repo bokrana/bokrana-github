@@ -1,0 +1,31 @@
+.modal-header
+ <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+ .passionate-header-box
+  = image_tag current_passionate.profile_image.url(:medium)
+  %p You
+ .passion-header-box
+  = image_tag("/assets/passion/#{@passion.photo}.png", :class =>"tooltip-item")
+  %p.text-overflow #{@passion.name.capitalize}
+ .hand-join-arrow
+  %p A
+  %p join
+.modal-body
+ - if @p2p.errors.any?
+  #errorExplanation
+   %h4 #{pluralize(@p2p.errors.count, "error")} prohibited this project from being saved:
+   %ul
+    - @p2p.errors.full_messages.each do |msg|
+     %li #{msg}
+ %p Man, I love this song, my parents love this song, my dog loves this song; if you don't love this song, then you're probably messed in the head like Hannibal Lecter or some shit.
+ #form-content
+  = form_for(@p2p,:url => {:action =>"create"},:html => {:novalidate => 'novalidate'},:remote => true ,:method => :post,:id => "join_passion_form") do |f|
+   %span My prise from to i offer discount
+   = f.text_field :price_from 
+   = f.text_field :price_to
+   = f.text_field :discount 
+   .control-group
+    = f.text_area :note ,:placeholder => "About your passion",:rows => "3",:style => "resize:none;overflow:hidden;"
+   .form-footer
+    %input{type: "button", value: "Cancel",  :class => "cancel form-button","data-dismiss" => "modal"}
+    = f.submit "Join" ,:id =>"submit",:class => "form-button"
+.modal-footer

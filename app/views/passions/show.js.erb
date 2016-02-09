@@ -1,0 +1,7 @@
+var $modal = $('#modal');
+  $modal.html("<%= escape_javascript(render 'passions/passion_passionates') %>").promise().done(function(){
+  $modal.modal({ "width" : "575px"});
+ });
+ 
+ 
+
